@@ -7,6 +7,7 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors({ origin: "https://students-backend-nq8g.onrender.com/student" }));
+
 app.use(express.json());
 
 const port = process.env.PORT || 5000;
@@ -84,6 +85,7 @@ app.post("/edit/:id", (req, res) => {
     return res.json(data);
   });
 });
+
 app.delete("/delete/:id", (req, res) => {
   const { id } = req.params;
 
