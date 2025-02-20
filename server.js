@@ -38,7 +38,7 @@ app.get("/students", (req, res) => {
   const dbQuery = `select * from student_details`;
   db.query(dbQuery, function (err, data) {
     if (err) {
-      res.json({ message: "Server Error" });
+      return res.json({ message: "Server Error" });
     }
     return res.json(data);
   });
@@ -49,7 +49,7 @@ app.get("/student/:id", (req, res) => {
   const dbQuery = "select * from student_details where id=?";
   db.query(dbQuery, [id], function (err, data) {
     if (err) {
-      res.json({ message: "Server Error" });
+      return res.json({ message: "Server Error" });
     }
     console.log(data);
     return res.json(data);
@@ -66,7 +66,7 @@ app.post("/edit/:id", (req, res) => {
   `;
   db.query(dbQuery, [name, email, gender, age, id], function (err, data) {
     if (err) {
-      res.json({ message: "Server Error" });
+      return res.json({ message: "Server Error" });
     }
     console.log(data);
     return res.json(data);
@@ -82,7 +82,7 @@ app.delete("/delete/:id", (req, res) => {
   `;
   db.query(dbQuery, [id], function (err, data) {
     if (err) {
-      res.json({ message: "Server Error" });
+      return res.json({ message: "Server Error" });
     }
     console.log("deleted");
     return res.json({ success: "student delete successfully" });
