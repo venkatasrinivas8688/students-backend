@@ -7,16 +7,15 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
-
+const dotEnv = require("dotenv");
+dotEnv.config();
 app.use(express.json());
-
-const port = process.env.PORT || 5000;
-
+const port = process.env.DB_PORT || 5000;
 const db = mysql2.createConnection({
-  host: "127.0.0.1",
-  user: "root",
-  password: "VENKATPAMIDI_@8688",
-  database: "students",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 db.connect((error) => {
   if (error) {
@@ -101,3 +100,4 @@ app.delete("/delete/:id", (req, res) => {
     return res.json({ success: "student delete successfully" });
   });
 });
+module.exports = db;
