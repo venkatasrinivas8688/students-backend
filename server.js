@@ -8,7 +8,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 app.use(express.json());
 
-const port = process.env.DB_PORT || process.env.PORT;
+const port = process.env.PORT;
 const db = require("./db");
 
 app.listen(port, () => {
