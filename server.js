@@ -1,30 +1,18 @@
 const express = require("express");
-const mysql2 = require("mysql2");
 const cors = require("cors");
 const path = require("path");
-
-const app = express();
-
-app.use(express.static(path.join(__dirname, "public")));
-app.use(cors());
 const dotEnv = require("dotenv");
 dotEnv.config();
+const app = express();
+app.use(express.static(path.join(__dirname, "public")));
+app.use(cors());
 app.use(express.json());
+
 const port = process.env.DB_PORT || 5000;
-const db = mysql2.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-});
-db.connect((error) => {
-  if (error) {
-    return console.log(error);
-  }
-  console.log("MySql Connected");
-});
+const db = require("./db");
+
 app.listen(port, () => {
-  console.log("listening");
+  console.log(`listening on port ${port}`);
 });
 
 app.post("/add_user", (req, res) => {
