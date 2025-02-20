@@ -1,23 +1,28 @@
 const express = require("express");
-const mysql = require("mysql");
+const mysql2 = require("mysql2");
 const cors = require("cors");
 const path = require("path");
 
 const app = express();
 
 app.use(express.static(path.join(__dirname, "public")));
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: "https://students-backend-nq8g.onrender.com/student" }));
 app.use(express.json());
 
-const port = 5000;
+const port = process.env.PORT || 5000;
 
-const db = mysql.createConnection({
+const db = mysql2.createConnection({
   host: "127.0.0.1",
   user: "root",
   password: "VENKATPAMIDI_@8688",
   database: "students",
 });
-
+db.connect((error) => {
+  if (error) {
+    return console.log(error);
+  }
+  console.log("MySql Connected");
+});
 app.listen(port, () => {
   console.log("listening");
 });
